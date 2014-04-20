@@ -26,6 +26,7 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
 
   private static final long FRAME_DURATION = 1000 / 60;
   private final static float OFFSET_PER_FRAME = 0.01f;
+  private static final float BASIC_DP_WIDTH = 360;
 
   private final Rect fBackgroundRect = new Rect();
   private Callbacks mCallbacks;
@@ -51,6 +52,7 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
   private int mCurrentSections;
   private float mStrokeWidth;
   private Drawable mBackgroundDrawable;
+  private float mDensity;
 
   private SmoothProgressDrawable(Interpolator interpolator,
                                  int sectionsCount,
@@ -64,7 +66,8 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
                                  boolean mirrorMode,
                                  Callbacks callbacks,
                                  boolean progressiveStartActivated,
-                                 Drawable backgroundDrawable) {
+                                 Drawable backgroundDrawable,
+                                 float density) {
     mRunning = false;
     mInterpolator = interpolator;
     mSectionsCount = sectionsCount;
@@ -81,6 +84,7 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
     mFinishing = false;
     mBackgroundDrawable = backgroundDrawable;
     mStrokeWidth = strokeWidth;
+    mDensity = density;
 
     mMaxOffset = 1f / mSectionsCount;
 
@@ -439,6 +443,11 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
     return PixelFormat.TRANSPARENT;
   }
 
+  @Override
+  protected void onBoundsChange(Rect bounds) {
+    super.onBoundsChange(bounds);
+  }
+
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////         Animation: based on http://cyrilmottier.com/2012/11/27/actionbar-on-the-move/
   @Override
@@ -487,12 +496,13 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
 
     @Override
     public void run() {
+      float smartSpeed = 1f / (getBounds().width() / mDensity / BASIC_DP_WIDTH);
       if (isFinishing()) {
-        mCurrentOffset += (OFFSET_PER_FRAME * mProgressiveStopSpeed);
+        mCurrentOffset += (smartSpeed * OFFSET_PER_FRAME * mProgressiveStopSpeed);
       } else if (isStarting()) {
-        mCurrentOffset += (OFFSET_PER_FRAME * mProgressiveStartSpeed);
+        mCurrentOffset += (smartSpeed * OFFSET_PER_FRAME * mProgressiveStartSpeed);
       } else {
-        mCurrentOffset += (OFFSET_PER_FRAME * mSpeed);
+        mCurrentOffset += (smartSpeed * OFFSET_PER_FRAME * mSpeed);
       }
 
       if (mCurrentOffset >= mMaxOffset) {
@@ -540,6 +550,7 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
     private boolean mProgressiveStartActivated;
     private boolean mGenerateBackgroundUsingColors;
     private Drawable mBackgroundDrawableWhenHidden;
+    private float mDensity;
 
     private Callbacks mOnProgressiveStopEndedListener;
 
@@ -564,7 +575,8 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
           mMirrorMode,
           mOnProgressiveStopEndedListener,
           mProgressiveStartActivated,
-          mBackgroundDrawableWhenHidden);
+          mBackgroundDrawableWhenHidden,
+          mDensity);
       return ret;
     }
 
@@ -580,6 +592,7 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
       mStrokeSeparatorLength = res.getDimensionPixelSize(R.dimen.spb_default_stroke_separator_length);
       mStrokeWidth = res.getDimensionPixelOffset(R.dimen.spb_default_stroke_width);
       mProgressiveStartActivated = res.getBoolean(R.bool.spb_default_progressiveStart_activated);
+      mDensity = res.getDisplayMetrics().density;
     }
 
     public Builder interpolator(Interpolator interpolator) {
