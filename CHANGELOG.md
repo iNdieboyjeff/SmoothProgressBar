@@ -1,3 +1,11 @@
+##0.5.1
+
+-   Fixed bug with gradients when reversed mode enabled and mirror mode disabled
+
+##0.5.0
+
+-   Added a gradient option via XML and JAVA
+
 ##0.4.0
 
 -   Added a `progressStart()` and `progressStop()` methods

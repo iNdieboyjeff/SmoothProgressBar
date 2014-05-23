@@ -6,7 +6,7 @@ Sample app available on the [Play Store]
 
 ##How does it work
 
-I made a [blog post] about that.
+I wrote a [blog post] about that.
 
 ##Integration
 
@@ -99,15 +99,24 @@ You can also set many colors for one bar (see G+ app)
 ##License
 
 ```
-"THE BEER-WARE LICENSE" (Revision 42):
-You can do whatever you want with this stuff.
-If we meet some day, and you think this stuff is worth it, you can buy me a beer in return.
+Copyright 2014 Antoine Merle
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
 ####Badges
 Travis master: [![Build Status](https://travis-ci.org/castorflex/SmoothProgressBar.png?branch=master)](https://travis-ci.org/castorflex/SmoothProgressBar)
 Travis dev: [![Build Status](https://travis-ci.org/castorflex/SmoothProgressBar.png?branch=dev)](https://travis-ci.org/castorflex/SmoothProgressBar)
-Bitdeli: [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/castorflex/smoothprogressbar/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [![Analytics](https://ga-beacon.appspot.com/UA-32954204-2/SmoothProgressBar/readme)](https://github.com/igrigorik/ga-beacon)
 
