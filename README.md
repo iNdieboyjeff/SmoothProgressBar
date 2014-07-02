@@ -2,7 +2,12 @@
 
 Small library allowing you to make a smooth indeterminate progress bar. You can either user your progress bars and set this drawable or use directly the `SmoothProgressBarView`.
 
+
+##Demo:
 Sample app available on the [Play Store]
+
+![SmoothProgressBar](screenshots/sample1.gif)
+
 
 ##How does it work
 
